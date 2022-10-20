@@ -3,14 +3,15 @@ from django.urls import is_valid_path
 from .models import Person
 from django.http import HttpResponse
 from .form import PersonForm
+from django.contrib.auth.decorators import login_required
 
-# Create your views here.
-
+@login_required
 def people_list(request):
     persons = Person.objects.all()
     return render(
         request, 'person.html', {'persons': persons})
 
+@login_required
 def person_new(request):
     form = PersonForm(request.POST or None, request.FILES or None)
     if form.is_valid():
@@ -21,6 +22,7 @@ def person_new(request):
 def home(request):
     return render(request, 'index.html')
 
+@login_required
 def person_update(request, id):
     person = get_object_or_404(Person, pk=id) 
     form = PersonForm(request.POST or None,  request.FILES or None, instance=person)
@@ -29,7 +31,7 @@ def person_update(request, id):
         return redirect('person_list')
     return render(request, 'person_form.html', {'form':form})
 
-
+@login_required
 def person_delete(request, id):
     person = get_object_or_404(Person, pk=id) 
     if request.method == 'POST':
