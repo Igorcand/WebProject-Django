@@ -30,7 +30,7 @@ def person_update(request, id):
     return render(request, 'person_form.html', {'form':form})
 
 
-def person_update(request, id):
+def person_delete(request, id):
     person = get_object_or_404(Person, pk=id) 
     if request.method == 'POST':
         person.delete()
