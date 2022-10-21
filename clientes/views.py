@@ -8,11 +8,6 @@ from django.contrib.auth.decorators import login_required
 @login_required
 def people_list(request):
     persons = Person.objects.all()
-    if persons:
-        for p in persons:
-            print(f'p = {p}')
-    else:
-        print(f'não tem pessoa cadastrada')
     return render(
         request, 'person.html', {'persons': persons})
 
