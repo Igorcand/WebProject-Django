@@ -1,0 +1,8 @@
+<h1>Person delete </h1>
+<form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <p>Tem certeza que deseja deletar "{{object}}"?</p>
+    <input type="submit" value="Confirmar">
+</form>
+
+<a href="{% url 'person_list_cbv' %}">Voltar</a>

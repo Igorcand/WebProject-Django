@@ -1,0 +1,9 @@
+<h1>listagem de pessoas</h1>
+<ul>
+{% for person in object_list %}
+
+<li> <a href="{% url 'person_detail_cbv' person.id %}">{{person}} </a> -- <a href="{% url 'person_update_cbv' person.id %}">Editar</a> -- <a href="{% url 'person_delete_cbv' person.id %}">Deletar</a></li>
+
+{% endfor %}
+</ul>
+<a href="{% url 'person_form_cbv' %}"> Novo</a>

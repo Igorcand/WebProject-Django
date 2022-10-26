@@ -1,0 +1,7 @@
+<h1>Person detail</h1>
+<p>Object name: {{object}}</p>
+<p>First name: {{object.first_name}}</p>
+<p>Last name: {{object.last_name}}</p>
+
+<a href="{% url 'person_update_cbv' object.id %}">Editar</a>
+<a href="{% url 'person_list_cbv' %}">Voltar</a>
