@@ -8,11 +8,10 @@
     <title>{% block title %}  {% endblock %}</title>
 </head>
 <body>
-    <nav class="navbar navbar-light bg-light d-flex justify-content-center">
-        <a class="navbar-brand " href="#">
-            Controle de Clientes
-        </a>
-    </nav>
+    {% block navbar %}
+        {% include 'navbar.html' %}
+    {% endblock %}
+
 
     <div class="container p-5 bg-secondary">
         <div class="">
@@ -23,11 +22,9 @@
     </div>
 
 
-    <footer class="footer">
-        <div class="container">
-            <span class="text-muted">Place sticky footer content here.</span>
-        </div>
-    </footer>
+    {% block footer %}
+        {% include 'footer.html' %}
+    {% endblock %}
 
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </body>
