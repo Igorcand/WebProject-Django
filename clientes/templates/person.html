@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load filters %}
 
 {% block title %} Página principal {% endblock %} 
 
@@ -33,10 +34,14 @@
         </ul>
         
         {% if persons|length > 0 %}
-            {% if persons|length == 1 %}
-                <p>Existe {{persons|length}} pessoa cadastrada</p>
+            {% if persons|length == 1 %}    
+                {% filter my_filter %}
+                    Existe {{persons|length}} pessoa cadastrada
+                {% endfilter %}
             {% else %}
-                <p>Existem {{persons|length}} pessoas cadastradas</p>
+                {% filter my_filter %}
+                    Existem {{persons|length}} pessoas cadastradas
+                {% endfilter %}
             {% endif %}
         {% endif %}
 
