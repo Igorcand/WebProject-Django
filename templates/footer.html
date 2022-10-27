@@ -1,5 +1,11 @@
 <footer class="footer">
     <div class="container">
-        <span class="text-muted">Desenvolvimento web utilizando Django 2.0</span>
+        <span class="text-muted">
+            {% filter force_escape|lower %}
+            Desenvolvimento web utilizando Django 2.0 - {% now "d F Y H:i" %}
+
+            {% endfilter %}
+
+        </span>
     </div>
 </footer>
