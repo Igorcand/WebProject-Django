@@ -8,3 +8,4 @@ sqlparse==0.4.3
 static3==0.7.0
 tzdata==2022.5
 django-bootstrap-form==3.4
+django-debug-toolbar-3.7.0
