@@ -2,6 +2,19 @@
 <p>Object name: {{object}}</p>
 <p>First name: {{object.first_name}}</p>
 <p>Last name: {{object.last_name}}</p>
+<p> Document: {{object.doc}}</p>
+
+
+<h2>Sale</h2>
+{% for venda in vendas %}
+    <p>Sale Id: {{venda.id}}</p>
+    <h3>Lista de produtos</h3>
+    <ul>
+        {% for product in venda.products.all %}
+        <li>{{product.id}}  -  {{product.description}}</li>
+        {% endfor %}
+    </ul>
+{% endfor %}
 
 <a href="{% url 'person_update_cbv' object.id %}">Editar</a>
 <a href="{% url 'person_list_cbv' %}">Voltar</a>

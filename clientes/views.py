@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import is_valid_path
-from .models import Person
+from .models import Person, Sale
 from django.http import HttpResponse
 from .form import PersonForm
 from django.contrib.auth.decorators import login_required
@@ -55,6 +55,17 @@ class PersonListView(ListView):
 from django.views.generic.detail import DetailView
 class PersonDetailView(DetailView):
     model = Person
+    
+    def get_object(self, queryset=None):
+        pk = self.kwargs.get(self.pk_url_kwarg)
+        return Person.objects.select_related('doc').get(id=pk)
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['vendas'] = Sale.objects.filter(
+            person_id=self.object.id
+        )
+        return context
 
 # CreateView
 #É uma view para criação de formularios
