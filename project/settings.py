@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'bootstrapform',
     'clientes',
+    'produtos',
+    'vendas',
     'home',
     'debug_toolbar'
 ]
