@@ -9,7 +9,7 @@ class RequestItemInLine(admin.TabularInline):
 
 
 class SaleAdmin(admin.ModelAdmin):
-    readonly_fields = ('discount', )
+    readonly_fields = ('value', )
     #raw_id_fields = ('person', )
     autocomplete_fields = ('person', )
 

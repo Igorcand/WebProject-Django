@@ -2,10 +2,14 @@ from django.db import models
 from clientes.models import Person
 from produtos.models import Product
 
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+from django.db.models import Sum, F, FloatField, Max
 
 class Sale(models.Model):
     num = models.CharField(max_length=7)
-    value = models.DecimalField(max_digits=10, decimal_places=2)
+    value = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     discount = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
     tax = models.DecimalField(max_digits=5, decimal_places=2)
     #RELACIONAMENTO ONE TO MANY - FOREING KEY 
@@ -18,12 +22,26 @@ class Sale(models.Model):
     nfe_emitida = models.BooleanField(default=False)
 
 
-    # def get_total(self):
-    #     tot = 0
-    #     for product in self.products.all():
-    #         tot+= product.price 
+    def calc_total(self):
+        total = self.requestitens_set.all().aggregate(
+            tot_ped = Sum(
+                (F('quantity') * F('product__price')) - F('discount'),
+                output_field = FloatField()
+                )
+        )['tot_ped']
+        try:
+            t = float(self.tax)
+        except:
+            t = 0
+        
+        try:
+            d = float(self.discount)
+        except:
+            d = 0
 
-    #     return (tot - self.discount) - self.tax 
+        total = total - t - d
+        self.value = total
+        Sale.objects.filter(id=self.id).update(value=total)
 
 
     def __str__(self):
@@ -38,4 +56,12 @@ class RequestItens(models.Model):
 
     def __str__(self):
         return self.sale.num + '-' + self.product.name
+
+@receiver(post_save,sender=RequestItens)
+def update_vendas_total(sender, instance, **kwargs):
+    instance.sale.calc_total()
+
+@receiver(post_save,sender=Sale)
+def update_vendas_total2(sender, instance, **kwargs):
+    instance.calc_total()
 
