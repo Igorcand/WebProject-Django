@@ -6,6 +6,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 from django.db.models import Sum, F, FloatField, Max
+from .managers import SaleManager
 
 class Sale(models.Model):
     num = models.CharField(max_length=7)
@@ -20,6 +21,8 @@ class Sale(models.Model):
     #Várias vendas podem ter vários produtos, não importando com repetições
     #products = models.ManyToManyField(Product, blank=True)
     nfe_emitida = models.BooleanField(default=False)
+
+    objects = SaleManager()
 
 
     def calc_total(self):
