@@ -33,6 +33,7 @@ urlpatterns = [
     path('login/', LoginView.as_view(), name='login'),
     #path('logout/', LoginView.as_view(), name='logout'),
     path('admin/', admin.site.urls),
+    path('', include('django.contrib.auth.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:

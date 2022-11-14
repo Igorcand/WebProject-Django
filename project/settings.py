@@ -146,3 +146,10 @@ LOGIN_REDIRECT_URL = 'person_list'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+
+#EMAIL_HOST = 'teste.algum_dominio.com.br'
+#EMAIL_PORT = 25
+#EMAIL_HOST_USER = 'usuario@dominio.com.br'
+#EMAIL_HOST_PASSWORD = 'senha123'
+#EMAIL_USE_TLS = False
