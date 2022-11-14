@@ -20,6 +20,12 @@ class Person(models.Model):
     #Um documento só pode ser ligado a uma pessoa
     doc = models.OneToOneField(Document, null=True, blank=True, on_delete=models.CASCADE)
 
+    class Meta:
+        
+        permissions = (
+            ('deletar_clientes', 'Pode deletar clientes'),
+        )
+
     def __str__(self):
         return f"{self.first_name} {self.last_name}" 
 

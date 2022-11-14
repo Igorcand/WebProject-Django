@@ -25,6 +25,14 @@ class Sale(models.Model):
     objects = SaleManager()
 
 
+    class Meta:
+        permissions = (
+            ('setar_nfe', 'Usuario pode alterar NFE'),
+            ('ver_dashboard', 'Pode visualizar o dashboard'),
+            ('permissao3', 'Permissão 3'),
+        )
+
+
     def calc_total(self):
         total = self.requestitens_set.all().aggregate(
             tot_ped = Sum(
