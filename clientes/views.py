@@ -51,6 +51,19 @@ class PersonListView(LoginRequiredMixin, ListView):
     #Se não falarmos qual é o template name, o django irá procurar dentro da sua app, em templates, uma outra pasta com o mesmo nome da app, com o arquivo com o nome do model, todo em minusculo, + _list. Então o arquivo seria person_list.html, na raiz app_name/templates/app_name/modelname_list.html
     model = Person
 
+    def get_context_data(self, **kwargs):
+        contexto = super().get_context_data(**kwargs)
+
+        primeiro_acesso = self.request.session.get('primeiro_acesso', False)
+
+        if not primeiro_acesso:
+            contexto['message'] = 'Seja bem vindo ao seu primeiro acesso hoje'
+            self.request.session['primeiro_acesso'] = True
+        else:
+            contexto['message'] = 'voce já acessou'
+        
+        return contexto
+
 # DetailView
 
 # Da mesma forma que o ListView pega todos os valores da tabela no banco por debaixo dos panos, o DetailView seria como um filter_by_id, pegando todas as informações pela primary key

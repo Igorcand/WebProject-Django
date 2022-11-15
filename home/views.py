@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth import logout
 
 def home(request):
@@ -16,7 +16,9 @@ from django.views import View
 class MyView(View):
     def get(self, request, *args, **kwargs):
         #return HttpResponse('hello world')
-        return render(request, 'home3.html')
+        response = render(request, 'home/home3.html')
+        response.set_cookie('cor', 'blue')
+        return response
     
     def post(self, request, *args, **kwargs):
         return HttpResponse('hello world feito em post')
